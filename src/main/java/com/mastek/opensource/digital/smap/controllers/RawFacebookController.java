@@ -1,8 +1,5 @@
 package com.mastek.opensource.digital.smap.controllers;
 
-import java.util.Map;
-import java.util.Set;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -10,11 +7,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.bson.BSONObject;
-
 import com.mastek.opensource.digital.smap.persistence.MongoCrudService;
 import com.mongodb.BasicDBObject;
-import com.mongodb.BasicDBObjectBuilder;
+import com.mongodb.CommandResult;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -74,5 +69,24 @@ public class RawFacebookController  {
     	return ret;
     }
 
+    @Path("/textSearch")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String textSearch(String command){
+
+    	System.out.println("inside textSearch with String command as "+ command);
+    	DBObject searchCmd = new BasicDBObject();
+    	searchCmd.put("text", getEntityName()); // the name of the collection (string)
+    	searchCmd.put("search", command); // the term to search for (string)
+    	CommandResult commandResult = MongoCrudService.getConnection().command(searchCmd);
+    	
+    	
+    	
+    	System.out.println("returning from textSearch with "+commandResult);
+    	System.out.println("returning from textSearch with "+commandResult.toMap());
+    	
+    	return commandResult.toMap().toString();
+    }
 
 }
