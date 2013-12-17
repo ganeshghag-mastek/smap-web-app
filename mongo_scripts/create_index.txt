@@ -1,0 +1,16 @@
+#creates text index on all fields, after enable full text search using "--setParameter textSearchEnabled=true"
+db.RawFacebookCollection.ensureIndex({ "$**": "text" },{ name: "FacebookUserProfileIndex" });
+
+#gets all indexes on collection
+db.RawFacebookCollection.getIndexes();
+
+#drops all indexes on collection
+db.RawFacebookCollection.dropIndexes();
+
+# drops 1 index selectively
+db.RawFacebookCollection.dropIndex( { "gender": 1 } )
+
+# raw command running text search on a collection
+db.RawFacebookCollection.runCommand("text", { search: "GANESH"});
+
+

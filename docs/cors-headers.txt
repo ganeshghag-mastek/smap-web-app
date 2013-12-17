@@ -1,0 +1,5 @@
+Access-Control-Allow-Credentials:true
+Access-Control-Allow-Headers:Authorization, Origin, Accept, Content-Type
+Access-Control-Allow-Methods:OPTIONS, PUT, POST, HEAD, GET, DELETE
+Access-Control-Allow-Origin:http://localhost:8080
+Access-Control-Max-Age:1209600
